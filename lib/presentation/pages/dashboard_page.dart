@@ -83,10 +83,11 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               Stack(
                 alignment: Alignment.center,
-                children: [
+                children: const [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150/92c952'),
+                    backgroundImage: AssetImage('assets/images/avatter.jpeg'),
+                    backgroundColor: Colors.transparent,
                   ),
                 ],
               ),
