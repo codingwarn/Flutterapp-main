@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_gallery_app/core/di/injection.dart';
-import 'package:flutter_gallery_app/presentation/blocs/photo/photo_bloc.dart';
 import 'package:flutter_gallery_app/presentation/pages/dashboard_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gallery_app/presentation/viewmodels/photo_view_model.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
-        BlocProvider<PhotoBloc>(
-          create: (_) => getIt<PhotoBloc>(),
+        ChangeNotifierProvider<PhotoViewModel>(
+          create: (_) => getIt<PhotoViewModel>()..fetch(),
         ),
       ],
       child: MaterialApp(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gallery_app/presentation/blocs/photo/photo_bloc.dart';
-import 'package:flutter_gallery_app/presentation/blocs/photo/photo_event.dart';
-import 'package:flutter_gallery_app/presentation/blocs/photo/photo_state.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gallery_app/presentation/viewmodels/photo_view_model.dart';
 import 'package:flutter_gallery_app/presentation/widgets/color_palette.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -18,7 +16,6 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    context.read<PhotoBloc>().add(const FetchPhotos());
   }
 
   @override
@@ -243,13 +240,13 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _buildGalleryGrid() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: BlocBuilder<PhotoBloc, PhotoState>(
-        builder: (context, state) {
-          if ((state.status == PhotoStatus.initial || state.status == PhotoStatus.loading) && state.photos.isEmpty) {
+      child: Consumer<PhotoViewModel>(
+        builder: (context, vm, _) {
+          if ((vm.status == PhotoVmStatus.initial || vm.status == PhotoVmStatus.loading) && vm.photos.isEmpty) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state.status == PhotoStatus.error) {
-            return Center(child: Text('Error: ${state.errorMessage}'));
-          } else if (state.photos.isEmpty) {
+          } else if (vm.status == PhotoVmStatus.error) {
+            return Center(child: Text('Error: ${vm.errorMessage}'));
+          } else if (vm.photos.isEmpty) {
             return const Center(child: Text('No photos available'));
           }
 
@@ -262,9 +259,9 @@ class _DashboardPageState extends State<DashboardPage> {
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
             ),
-            itemCount: state.photos.length,
+            itemCount: vm.photos.length,
             itemBuilder: (context, index) {
-              final photo = state.photos[index];
+              final photo = vm.photos[index];
               return ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(

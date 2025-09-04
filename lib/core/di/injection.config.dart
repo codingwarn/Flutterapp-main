@@ -17,6 +17,7 @@ import '../../data/repositories/photo_repository_impl.dart' as _i747;
 import '../../domain/repositories/photo_repository.dart' as _i236;
 import '../../domain/usecases/get_photos_usecase.dart' as _i997;
 import '../../presentation/blocs/photo/photo_bloc.dart' as _i1026;
+import '../../presentation/viewmodels/photo_view_model.dart' as _i544;
 import '../network/api_client.dart' as _i557;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -39,5 +40,7 @@ _i174.GetIt init(
       () => _i997.GetPhotosUseCase(gh<_i236.PhotoRepository>()));
   gh.factory<_i1026.PhotoBloc>(
       () => _i1026.PhotoBloc(gh<_i997.GetPhotosUseCase>()));
+  gh.factory<_i544.PhotoViewModel>(
+      () => _i544.PhotoViewModel(gh<_i997.GetPhotosUseCase>()));
   return getIt;
 }
