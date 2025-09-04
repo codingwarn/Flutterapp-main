@@ -25,27 +25,41 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundColor: Colors.black,
-            child: const Text('AGC', style: TextStyle(color: Colors.white, fontSize: 12)),
-          ),
+        leadingWidth: 96,
+        leading: Row(
+          children: [
+            const SizedBox(width: 8),
+            CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.black,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('A', style: TextStyle(color: Colors.white, fontSize: 10, height: 1.0)),
+                  Text('G', style: TextStyle(color: Colors.white, fontSize: 10, height: 1.0)),
+                  Text('C', style: TextStyle(color: Colors.white, fontSize: 10, height: 1.0)),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Text('AGC', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600)),
+          ],
         ),
         actions: [
-          IconButton(
-            icon: const CircleAvatar(
-              backgroundColor: Color(0xFFE91E63),
-              child: Icon(Icons.notifications, color: Colors.white, size: 16),
+          Padding(
+            padding: const EdgeInsets.only(right: 4.0),
+            child: CircleAvatar(
+              radius: 18,
+              backgroundColor: const Color(0xFFE0003C),
+              child: const Icon(Icons.person, color: Colors.white, size: 18),
             ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.add, color: Colors.black),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.menu),
+            icon: const Icon(Icons.menu, color: Colors.black),
             onPressed: () {},
           ),
         ],
@@ -73,9 +87,9 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Column(
                 children: [
-                  const Icon(Icons.upload_outlined, size: 30),
+                  const Icon(Icons.upload_outlined, size: 30, color: Colors.black87),
                   const SizedBox(height: 4),
-                  Text('Upload', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                  const Text('Upload', style: TextStyle(color: Color(0xFF5E7BB5), fontSize: 14)),
                 ],
               ),
               Stack(
@@ -90,9 +104,9 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               Column(
                 children: [
-                  const Icon(Icons.edit_outlined, size: 30),
+                  const Icon(Icons.edit_outlined, size: 30, color: Colors.black87),
                   const SizedBox(height: 4),
-                  Text('Edit', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                  const Text('Edit', style: TextStyle(color: Color(0xFF5E7BB5), fontSize: 14)),
                 ],
               ),
             ],
@@ -102,7 +116,7 @@ class _DashboardPageState extends State<DashboardPage> {
           // Username
           const Text(
             'john.doe',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 36, fontWeight: FontWeight.w600, letterSpacing: 0.2),
           ),
           const SizedBox(height: 8),
           
@@ -110,7 +124,7 @@ class _DashboardPageState extends State<DashboardPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('My dashboard', style: TextStyle(color: Colors.grey[600])),
+              Text('My dashboard', style: TextStyle(color: Colors.black87, fontSize: 14)),
               const SizedBox(width: 8),
               Switch(
                 value: true,
@@ -132,21 +146,22 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 16),
           
-          // Likes row
+          // Likes row (pixel-tuned)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Icons.favorite_border, color: Colors.red),
-              const SizedBox(width: 4),
-              Text('120', style: TextStyle(color: Colors.grey[600])),
-              const SizedBox(width: 16),
-              const Icon(Icons.remove_red_eye_outlined, color: Colors.grey),
-              const SizedBox(width: 4),
-              Text('4.3K', style: TextStyle(color: Colors.grey[600])),
-              const SizedBox(width: 16),
-              const Icon(Icons.share_outlined, color: Colors.grey),
-              const SizedBox(width: 4),
-              Text('2.3K', style: TextStyle(color: Colors.grey[600])),
+              const Icon(Icons.favorite_border, color: Colors.red, size: 20),
+              const SizedBox(width: 6),
+              const Text('120', style: TextStyle(color: Colors.black87, fontSize: 14)),
+              const SizedBox(width: 24),
+              const Icon(Icons.send_rounded, color: Color(0xFF5E7BB5), size: 20),
+              const SizedBox(width: 6),
+              const Text('43K', style: TextStyle(color: Colors.black87, fontSize: 14)),
+              const SizedBox(width: 24),
+              const Icon(Icons.share_outlined, color: Colors.black54, size: 20),
+              const SizedBox(width: 6),
+              const Text('2.3K', style: TextStyle(color: Colors.black87, fontSize: 14)),
             ],
           ),
           const SizedBox(height: 16),
@@ -154,10 +169,9 @@ class _DashboardPageState extends State<DashboardPage> {
           // Color palette
            Row(
              children: [
-               Text('palette', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-               const SizedBox(width: 8),
                const Expanded(
                  child: ColorPalette(
+                   label: 'palette',
                    colors: [
                      Color(0xFF4A1E5F),  // Purple
                      Color(0xFFE91E63),  // Pink
