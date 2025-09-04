@@ -27,8 +27,13 @@ class PhotoRemoteDataSourceImpl implements PhotoRemoteDataSource {
         return (response.data as List)
             .map((json) => PhotoModel.fromJson(json))
             .toList();
+      } else if (response.statusCode == 403) {
+        throw Exception(
+            'Access forbidden (403). The API may be blocking requests from this environment.');
+      } else if (response.statusCode == 404) {
+        throw Exception('Endpoint not found: /photos');
       } else {
-        throw Exception('Failed to load photos');
+        throw Exception('Failed to load photos (status: ${response.statusCode}).');
       }
     } catch (e) {
       throw Exception('Failed to load photos: $e');

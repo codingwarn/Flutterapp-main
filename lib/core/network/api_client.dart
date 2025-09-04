@@ -7,8 +7,14 @@ class ApiClient {
 
   ApiClient() : _dio = Dio() {
     _dio.options.baseUrl = 'https://jsonplaceholder.typicode.com';
-    _dio.options.connectTimeout = const Duration(seconds: 5);
-    _dio.options.receiveTimeout = const Duration(seconds: 3);
+    _dio.options.connectTimeout = const Duration(seconds: 30);
+    _dio.options.receiveTimeout = const Duration(seconds: 30);
+    _dio.options.headers = <String, dynamic>{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+      // Some public endpoints may block requests without a user agent.
+      'User-Agent': 'flutter-gallery-app/1.0 (+https://example.app)'
+    };
   }
 
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) async {
