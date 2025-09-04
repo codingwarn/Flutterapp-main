@@ -12,7 +12,7 @@ class ColorPalette extends StatelessWidget {
     required this.colors,
     this.height = 40,
     this.borderRadius = 0,
-    this.label = 'palette',
+    this.label = 'pallette',
     this.labelWidth = 84,
   }) : super(key: key);
 

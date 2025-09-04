@@ -171,7 +171,7 @@ class _DashboardPageState extends State<DashboardPage> {
              children: [
                const Expanded(
                  child: ColorPalette(
-                   label: 'palette',
+                   label: 'pallette',
                    colors: [
                      Color(0xFF4A1E5F),  // Purple
                      Color(0xFFE91E63),  // Pink
