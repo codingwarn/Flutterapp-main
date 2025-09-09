@@ -29,17 +29,17 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leadingWidth: 120,
+        leadingWidth: 122,
         leading: Padding(
-          padding: const EdgeInsets.only(top: 27, left: 34.0),
+          padding: const EdgeInsets.only(top: 27, left: 40.0),
           child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              width: 28,
+              width: 26,
               height: 28,
               child: CircleAvatar(
-                radius: 14,
+                radius: 13,
                 backgroundColor: Color(0xFF231F20),
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -227,7 +227,6 @@ class _DashboardPageState extends State<DashboardPage> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.barlow(
                   fontSize: 36,
-                  fontWeight: FontWeight.w300,
                   height: 28 / 36,
                   letterSpacing: -1.32,
                   color: const Color(0xFF000000),
@@ -733,3 +732,4 @@ class _FigmaSwitchState extends State<_FigmaSwitch> with SingleTickerProviderSta
     );
   }
 }
+
