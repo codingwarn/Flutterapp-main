@@ -52,9 +52,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
             ),
-            const SizedBox(width: 3),
             SizedBox(
-              width: 50,
+              width: 52.76,
               height: 14.9,
               child: Center(
                 child: Text(
@@ -77,14 +76,13 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 34.0),
+            padding: const EdgeInsets.only(right: 20.0),
             child: SizedBox(
               width: 33,
               height: 33,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  // Solid circular background to match Figma 33x33
                   Container(
                     width: 33,
                     height: 33,
@@ -93,12 +91,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       shape: BoxShape.circle,
                     ),
                   ),
-                  // Centered person glyph sized exactly 17.98 x 19
                   SizedBox(
                     width: 17.98,
                     height: 19,
-                    child: const CustomPaint(
-                      painter: _PersonGlyphPainter(color: Colors.white),
+                    child: Image.asset(
+                      'assets/images/personicon.png',
+                      width: 17.98,
+                      height: 19,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ],
@@ -138,10 +138,8 @@ class _DashboardPageState extends State<DashboardPage> {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
-          // Profile image and edit buttons
           Row(
             children: [
-              // Left side with Upload aligned to My dashboard
               Padding(
                 padding: const EdgeInsets.only(left: 34.0),
                 child: Column(
@@ -172,14 +170,13 @@ class _DashboardPageState extends State<DashboardPage> {
                   ],
                 ),
               ),
-              // Center profile image
               Expanded(
                 child: Center(
                   child: Stack(
                     alignment: Alignment.center,
                     children: const [
                       CircleAvatar(
-                        radius: 63.5, // 127 x 127 diameter
+                        radius: 63.5,
                         backgroundImage: AssetImage('assets/images/avatter.jpeg'),
                         backgroundColor: Colors.transparent,
                       ),
@@ -187,7 +184,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ),
               ),
-              // Right side with Edit button
               Padding(
                 padding: const EdgeInsets.only(right: 34.0),
                 child: Column(
@@ -222,7 +218,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 16),
           
-          // Username
           SizedBox(
             width: 267,
             height: 28,
@@ -244,7 +239,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 8),
           
-          // My dashboard row (indented)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 34.0),
             child: Row(
@@ -259,7 +253,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     style: GoogleFonts.barlowCondensed(
                       fontWeight: FontWeight.w300,
                       fontSize: 14,
-                      height: 24 / 14, // line height
+                            height: 24 / 14,
                       letterSpacing: 0,
                     ),
                     textAlign: TextAlign.center,
@@ -283,7 +277,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 16),
           
-          // Stats row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -305,7 +298,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 16),
           
-          // Likes row (pixel-tuned)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -344,7 +336,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 16),
           
-          // Color palette image (340 x 42) with overlay label per Figma
           Align(
             alignment: Alignment.center,
             child: SizedBox(
@@ -358,7 +349,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  // Label 80x24, left offset 40, vertically centered (top = 9)
                   Positioned(
                     left: 16,
                     top: 9,
@@ -463,7 +453,7 @@ class _DashboardPageState extends State<DashboardPage> {
               fontWeight: FontWeight.w500,
               height: 24 / 14,
               letterSpacing: 0,
-              color: const Color(0x75000000), // ~46% opacity black
+              color: const Color(0x75000000),
             ),
           ),
           _buildNavItem(
@@ -556,7 +546,6 @@ class _DashboardPageState extends State<DashboardPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  // Figma tile size: 166.94 x 168 => aspect ratio ≈ 0.993
                   childAspectRatio: 0.993,
                   crossAxisSpacing: 6.12,
                   mainAxisSpacing: 8,
@@ -620,27 +609,48 @@ class _PersonGlyphPainter extends CustomPainter {
     final Paint strokePaint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.2
+      ..strokeWidth = 2.0
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
 
-    // Head circle (fits into 17.98x19 box like Figma)
-    final double headDiameter = 9.6;
+    // Head circle - positioned to match Figma reference
+    final double headDiameter = 7.0;
     final double headRadius = headDiameter / 2;
     final Offset headCenter = Offset(size.width / 2, 5.5);
     canvas.drawCircle(headCenter, headRadius, strokePaint);
 
-    // Body rounded-rect outline
-    final double margin = 0.8; // visual inset to match Figma padding
-    final double bodyTop = 8.8;
-    final Rect bodyRect = Rect.fromLTWH(
-      margin,
-      bodyTop,
-      size.width - margin * 2,
-      size.height - bodyTop - margin,
+    // Body - rounded trapezoid/U-shape to match Figma reference
+    final double bodyTop = 9.0;
+    final double bodyBottom = size.height - 2.0;
+    final double bodyWidthTop = size.width * 0.55;  // narrower at top
+    final double bodyWidthBottom = size.width * 0.75; // wider at bottom
+    
+    final Path bodyPath = Path();
+    // Start from top-left with rounded corner
+    bodyPath.moveTo((size.width - bodyWidthTop) / 2 + 1.5, bodyTop);
+    // Top edge
+    bodyPath.lineTo((size.width + bodyWidthTop) / 2 - 1.5, bodyTop);
+    // Right side with slight curve
+    bodyPath.quadraticBezierTo(
+      (size.width + bodyWidthBottom) / 2, bodyTop + 2,
+      (size.width + bodyWidthBottom) / 2, bodyBottom - 1.5
     );
-    final RRect rrect = RRect.fromRectAndRadius(bodyRect, const Radius.circular(3.2));
-    canvas.drawRRect(rrect, strokePaint);
+    // Bottom edge
+    bodyPath.lineTo((size.width + bodyWidthBottom) / 2, bodyBottom);
+    bodyPath.lineTo((size.width - bodyWidthBottom) / 2, bodyBottom);
+    // Left side with slight curve
+    bodyPath.quadraticBezierTo(
+      (size.width - bodyWidthBottom) / 2, bodyBottom - 1.5,
+      (size.width - bodyWidthTop) / 2, bodyTop + 2
+    );
+    // Close with rounded top-left corner
+    bodyPath.quadraticBezierTo(
+      (size.width - bodyWidthTop) / 2, bodyTop,
+      (size.width - bodyWidthTop) / 2 + 1.5, bodyTop
+    );
+    bodyPath.close();
+    
+    canvas.drawPath(bodyPath, strokePaint);
   }
 
   @override
