@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gallery_app/presentation/viewmodels/photo_view_model.dart';
 import 'package:flutter_gallery_app/presentation/widgets/color_palette.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -25,33 +26,81 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leadingWidth: 96,
-        leading: Row(
+        leadingWidth: 110,
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 27),
+          child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(width: 8),
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: Colors.black,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('A', style: TextStyle(color: Colors.white, fontSize: 10, height: 1.0)),
-                  Text('G', style: TextStyle(color: Colors.white, fontSize: 10, height: 1.0)),
-                  Text('C', style: TextStyle(color: Colors.white, fontSize: 10, height: 1.0)),
-                ],
+            const SizedBox(width: 24),
+            SizedBox(
+              width: 28,
+              height: 28,
+              child: CircleAvatar(
+                radius: 14,
+                backgroundColor: Color(0xFF231F20),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('A', style: TextStyle(color: Colors.white, fontSize: 9, height: 1.0, fontWeight: FontWeight.w500)),
+                    Text('G', style: TextStyle(color: Colors.white, fontSize: 9, height: 1.0, fontWeight: FontWeight.w500)),
+                    Text('C', style: TextStyle(color: Colors.white, fontSize: 9, height: 1.0, fontWeight: FontWeight.w500)),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(width: 8),
-            const Text('AGC', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600)),
+            const SizedBox(width: 5),
+            SizedBox(
+              width: 52.76,
+              height: 14.9,
+              child: Center(
+                child: Text(
+                  'AGC',
+                  style: GoogleFonts.barlow(
+                    color: Color(0xFF000000),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    height: 14.9 / 15,
+                    letterSpacing: 0,
+                  ),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.clip,
+                  softWrap: false,
+                ),
+              ),
+            ),
           ],
+        ),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 4.0),
-            child: CircleAvatar(
-              radius: 18,
-              backgroundColor: const Color(0xFFE0003C),
-              child: const Icon(Icons.person, color: Colors.white, size: 18),
+            child: SizedBox(
+              width: 33,
+              height: 33,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Solid circular background to match Figma 33x33
+                  Container(
+                    width: 33,
+                    height: 33,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFD1163A),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  // Centered person glyph sized exactly 17.98 x 19
+                  SizedBox(
+                    width: 17.98,
+                    height: 19,
+                    child: const CustomPaint(
+                      painter: _PersonGlyphPainter(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           IconButton(
@@ -87,7 +136,11 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Column(
                 children: [
-                  const Icon(Icons.upload_outlined, size: 30, color: Colors.black87),
+                  Image.asset(
+                    'assets/images/image.png',
+                    width: 27.97,
+                    height: 32.39,
+                  ),
                   const SizedBox(height: 4),
                   const Text('Upload', style: TextStyle(color: Color(0xFF5E7BB5), fontSize: 14)),
                 ],
@@ -96,7 +149,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 alignment: Alignment.center,
                 children: const [
                   CircleAvatar(
-                    radius: 50,
+                    radius: 63.5, // 127 x 127 diameter
                     backgroundImage: AssetImage('assets/images/avatter.jpeg'),
                     backgroundColor: Colors.transparent,
                   ),
@@ -104,7 +157,11 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               Column(
                 children: [
-                  const Icon(Icons.edit_outlined, size: 30, color: Colors.black87),
+                     Image.asset(
+                    'assets/images/edit.png',
+                    width: 26.99,
+                    height: 26.99,
+                  ),
                   const SizedBox(height: 4),
                   const Text('Edit', style: TextStyle(color: Color(0xFF5E7BB5), fontSize: 14)),
                 ],
@@ -114,24 +171,72 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 16),
           
           // Username
-          const Text(
-            'john.doe',
-            style: TextStyle(fontSize: 36, fontWeight: FontWeight.w600, letterSpacing: 0.2),
+          SizedBox(
+            width: 267,
+            height: 28,
+            child: Center(
+              child: Text(
+                'john.doe',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.barlow(
+                  fontSize: 36,
+                  // Closest to Figma ExtraLight (275)
+                  fontWeight: FontWeight.w600,
+                  height: 28 / 36,
+                  letterSpacing: -1.32,
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 8),
           
           // My dashboard row
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('My dashboard', style: TextStyle(color: Colors.black87, fontSize: 14)),
-              const SizedBox(width: 8),
-              Switch(
-                value: true,
-                onChanged: (value) {},
-                activeColor: Colors.green,
+              SizedBox(
+                width: 65,
+                height: 24,
+                child: Center(
+                  child: Text(
+                    'My dashboard',
+                    style: GoogleFonts.barlowCondensed(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 14,
+                      height: 24 / 14, // line height
+                      letterSpacing: 0,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 46,
+                height: 17,
+                child: Center(
+                  child: Transform.scale(
+                    scale: 17 / 28, // 28 is the default height of a Flutter Switch
+                    child: Switch(
+                      value: true,
+                      onChanged: (value) {},
+                      activeColor: Colors.green,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  ),
+                ),
               ),
             ],
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              width: double.infinity,
+              height: 2,
+              child: const DecoratedBox(
+                decoration: BoxDecoration(color: Color(0xFFDBDBD8)),
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           
@@ -144,24 +249,54 @@ class _DashboardPageState extends State<DashboardPage> {
               _buildStatColumn('21', 'Exhibitions'),
             ],
           ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              width: double.infinity,
+              height: 2,
+              child: const DecoratedBox(
+                decoration: BoxDecoration(color: Color(0xFFDBDBD8)),
+              ),
+            ),
+          ),
           const SizedBox(height: 16),
           
           // Likes row (pixel-tuned)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Icon(Icons.favorite_border, color: Colors.red, size: 20),
-              const SizedBox(width: 6),
+            children: [Image.asset(
+                'assets/images/heart.png',
+                width: 19,
+                height: 16, 
+                color: Color(0xFFFF0000),
+
+              ),
+             const SizedBox(width: 6),
+            
               const Text('120', style: TextStyle(color: Colors.black87, fontSize: 14)),
               const SizedBox(width: 24),
-              const Icon(Icons.send_rounded, color: Color(0xFF5E7BB5), size: 20),
+                 Image.asset(
+                'assets/images/share.png',
+                width: 16,
+                height: 16,
+                color: Color(0xFF007DB2),
+              ),
               const SizedBox(width: 6),
               const Text('43K', style: TextStyle(color: Colors.black87, fontSize: 14)),
               const SizedBox(width: 24),
-              const Icon(Icons.share_outlined, color: Colors.black54, size: 20),
+               Image.asset(
+                'assets/images/shareeee.png',
+                width: 14,
+                height: 16,
+                color: Color(0xFF000000),
+              ),
+           
               const SizedBox(width: 6),
               const Text('2.3K', style: TextStyle(color: Colors.black87, fontSize: 14)),
+              const SizedBox(width: 24),
+             
             ],
           ),
           const SizedBox(height: 16),
@@ -192,13 +327,38 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _buildStatColumn(String count, String label) {
     return Column(
       children: [
-        Text(
-          count,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        SizedBox(
+          width: 75,
+          height: 29,
+          child: Center(
+            child: Text(
+              count,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.barlowCondensed(
+                fontSize: 24,
+                fontWeight: FontWeight.w300,
+                height: 29 / 24,
+                letterSpacing: 0,
+              ),
+            ),
+          ),
         ),
-        Text(
-          label,
-          style: TextStyle(color: Colors.grey[600], fontSize: 12),
+        SizedBox(
+          width: 80,
+          height: 24,
+          child: Center(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.barlow(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                height: 24 / 14,
+                letterSpacing: 0,
+                color: Colors.black87,
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -210,15 +370,40 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildNavItem(Icons.upload_outlined, 'Uploads', 0),
-          _buildNavItem(Icons.image_outlined, 'Exhibitions', 1),
-          _buildNavItem(Icons.attach_money_outlined, 'Revenue', 2),
+          _buildNavItem(
+            imagePath: 'assets/images/image.png',
+            imageWidth: 28.97,
+            imageHeight: 34.34,
+            label: 'Uploads',
+            index: 0,
+          ),
+          _buildNavItem(
+            imagePath: 'assets/images/Exhibitions.png',
+            imageWidth: 30.96,
+            imageHeight: 30.96,
+            label: 'Exhibitions',
+            index: 1,
+          ),
+          _buildNavItem(
+             imagePath: 'assets/images/Revenue.png',
+            imageWidth: 53,
+            imageHeight: 24,
+            label: 'Revenue',
+            index: 2,
+          ),
         ],
       ),
     );
   }
   
-  Widget _buildNavItem(IconData icon, String label, int index) {
+  Widget _buildNavItem({
+    IconData? icon,
+    String? imagePath,
+    double? imageWidth,
+    double? imageHeight,
+    required String label,
+    required int index,
+  }) {
     final isSelected = _currentIndex == index;
     return InkWell(
       onTap: () {
@@ -228,10 +413,18 @@ class _DashboardPageState extends State<DashboardPage> {
       },
       child: Column(
         children: [
-          Icon(
-            icon,
-            color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey,
-          ),
+          if (icon != null)
+            Icon(
+              icon,
+              color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey,
+            )
+          else if (imagePath != null)
+            Image.asset(
+              imagePath,
+              width: imageWidth,
+              height: imageHeight,
+              color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey,
+            ),
           const SizedBox(height: 4),
           Text(
             label,
@@ -312,5 +505,45 @@ class _DashboardPageState extends State<DashboardPage> {
         },
       ),
     );
+  }
+ 
+}
+
+class _PersonGlyphPainter extends CustomPainter {
+  const _PersonGlyphPainter({required this.color});
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint strokePaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.2
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    // Head circle (fits into 17.98x19 box like Figma)
+    final double headDiameter = 9.6;
+    final double headRadius = headDiameter / 2;
+    final Offset headCenter = Offset(size.width / 2, 5.5);
+    canvas.drawCircle(headCenter, headRadius, strokePaint);
+
+    // Body rounded-rect outline
+    final double margin = 0.8; // visual inset to match Figma padding
+    final double bodyTop = 8.8;
+    final Rect bodyRect = Rect.fromLTWH(
+      margin,
+      bodyTop,
+      size.width - margin * 2,
+      size.height - bodyTop - margin,
+    );
+    final RRect rrect = RRect.fromRectAndRadius(bodyRect, const Radius.circular(3.2));
+    canvas.drawRRect(rrect, strokePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _PersonGlyphPainter oldDelegate) {
+    return oldDelegate.color != color;
   }
 }
