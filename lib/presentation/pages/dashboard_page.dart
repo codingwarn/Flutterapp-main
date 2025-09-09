@@ -105,13 +105,19 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.add, color: Colors.black),
-            onPressed: () {},
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: const Icon(Icons.add, color: Colors.black),
+              onPressed: () {},
+            ),
           ),
-          IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {},
+          Padding(
+            padding: const EdgeInsets.only(right: 34.0),
+            child: IconButton(
+              icon: const Icon(Icons.menu, color: Colors.black),
+              onPressed: () {},
+            ),
           ),
         ],
       ),
