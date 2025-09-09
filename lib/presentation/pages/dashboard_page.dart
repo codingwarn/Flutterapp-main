@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'dart:ui' show FontVariation;
+import 'dart:ui' show FontVariation;
 import 'package:provider/provider.dart';
 import 'package:flutter_gallery_app/presentation/viewmodels/photo_view_model.dart';
 import 'package:flutter_gallery_app/presentation/widgets/color_palette.dart';
@@ -26,13 +29,12 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leadingWidth: 110,
+        leadingWidth: 120,
         leading: Padding(
-          padding: const EdgeInsets.only(top: 27),
+          padding: const EdgeInsets.only(top: 27, left: 34.0),
           child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(width: 24),
             SizedBox(
               width: 28,
               height: 28,
@@ -50,9 +52,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
             ),
-            const SizedBox(width: 5),
+            const SizedBox(width: 3),
             SizedBox(
-              width: 52.76,
+              width: 50,
               height: 14.9,
               child: Center(
                 child: Text(
@@ -75,7 +77,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 4.0),
+            padding: const EdgeInsets.only(right: 34.0),
             child: SizedBox(
               width: 33,
               height: 33,
@@ -132,39 +134,83 @@ class _DashboardPageState extends State<DashboardPage> {
         children: [
           // Profile image and edit buttons
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/image.png',
-                    width: 27.97,
-                    height: 32.39,
-                  ),
-                  const SizedBox(height: 4),
-                  const Text('Upload', style: TextStyle(color: Color(0xFF5E7BB5), fontSize: 14)),
-                ],
+              // Left side with Upload aligned to My dashboard
+              Padding(
+                padding: const EdgeInsets.only(left: 34.0),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/image.png',
+                      width: 27.97,
+                      height: 32.39,
+                    ),
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      width: 65,
+                      height: 24,
+                      child: Center(
+                        child: Text(
+                          'Upload',
+                          style: GoogleFonts.barlowCondensed(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 14,
+                            height: 24 / 14,
+                            letterSpacing: 0,
+                            color: Color(0xFF5E7BB5),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Stack(
-                alignment: Alignment.center,
-                children: const [
-                  CircleAvatar(
-                    radius: 63.5, // 127 x 127 diameter
-                    backgroundImage: AssetImage('assets/images/avatter.jpeg'),
-                    backgroundColor: Colors.transparent,
+              // Center profile image
+              Expanded(
+                child: Center(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: const [
+                      CircleAvatar(
+                        radius: 63.5, // 127 x 127 diameter
+                        backgroundImage: AssetImage('assets/images/avatter.jpeg'),
+                        backgroundColor: Colors.transparent,
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-              Column(
-                children: [
+              // Right side with Edit button
+              Padding(
+                padding: const EdgeInsets.only(right: 34.0),
+                child: Column(
+                  children: [
                      Image.asset(
-                    'assets/images/edit.png',
-                    width: 26.99,
-                    height: 26.99,
-                  ),
-                  const SizedBox(height: 4),
-                  const Text('Edit', style: TextStyle(color: Color(0xFF5E7BB5), fontSize: 14)),
-                ],
+                      'assets/images/edit.png',
+                      width: 26.99,
+                      height: 26.99,
+                    ),
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      width: 65,
+                      height: 24,
+                      child: Center(
+                        child: Text(
+                          'Edit',
+                          style: GoogleFonts.barlowCondensed(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 14,
+                            height: 24 / 14,
+                            letterSpacing: 0,
+                            color: Color(0xFF5E7BB5),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -180,21 +226,25 @@ class _DashboardPageState extends State<DashboardPage> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.barlow(
                   fontSize: 36,
-                  // Closest to Figma ExtraLight (275)
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w300,
                   height: 28 / 36,
                   letterSpacing: -1.32,
+                  color: const Color(0xFF000000),
+                ).copyWith(
+                  fontVariations: const [FontVariation('wght', 275)],
                 ),
               ),
             ),
           ),
           const SizedBox(height: 8),
           
-          // My dashboard row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
+          // My dashboard row (indented)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 34.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
                 width: 65,
                 height: 24,
                 child: Center(
@@ -209,29 +259,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 46,
-                height: 17,
-                child: Center(
-                  child: Transform.scale(
-                    scale: 17 / 28, // 28 is the default height of a Flutter Switch
-                    child: Switch(
-                      value: true,
-                      onChanged: (value) {},
-                      activeColor: Colors.green,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                  ),
                 ),
-              ),
-            ],
+                const _FigmaSwitch(initialValue: true),
+              ],
+            ),
           ),
           const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          Align(
+            alignment: Alignment.center,
             child: SizedBox(
-              width: double.infinity,
+              width: 332,
               height: 2,
               child: const DecoratedBox(
                 decoration: BoxDecoration(color: Color(0xFFDBDBD8)),
@@ -250,10 +287,10 @@ class _DashboardPageState extends State<DashboardPage> {
             ],
           ),
           const SizedBox(height: 12),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          Align(
+            alignment: Alignment.center,
             child: SizedBox(
-              width: double.infinity,
+              width: 332,
               height: 2,
               child: const DecoratedBox(
                 decoration: BoxDecoration(color: Color(0xFFDBDBD8)),
@@ -301,23 +338,48 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 16),
           
-          // Color palette
-           Row(
-             children: [
-               const Expanded(
-                 child: ColorPalette(
-                   label: 'pallette',
-                   colors: [
-                     Color(0xFF4A1E5F),  // Purple
-                     Color(0xFFE91E63),  // Pink
-                     Color(0xFFF44336),  // Red
-                     Color(0xFFFF9800),  // Orange
-                     Color(0xFFFFEB3B),  // Yellow
-                   ],
-                 ),
-               ),
-             ],
-           ),
+          // Color palette image (340 x 42) with overlay label per Figma
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 340,
+              height: 42,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/images/colorimage.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  // Label 80x24, left offset 40, vertically centered (top = 9)
+                  Positioned(
+                    left: 16,
+                    top: 9,
+                    child: SizedBox(
+                      width: 80,
+                      height: 24,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'pallette',
+                          style: GoogleFonts.barlowCondensed(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            height: 24 / 14,
+                            letterSpacing: 0,
+                            color: Colors.white,
+                          ),
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           const SizedBox(height: 16),
         ],
       ),
@@ -376,6 +438,13 @@ class _DashboardPageState extends State<DashboardPage> {
             imageHeight: 34.34,
             label: 'Uploads',
             index: 0,
+            textStyle: GoogleFonts.barlow(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              height: 24 / 14,
+              letterSpacing: 0,
+              color: const Color(0xFF000000),
+            ),
           ),
           _buildNavItem(
             imagePath: 'assets/images/Exhibitions.png',
@@ -383,13 +452,27 @@ class _DashboardPageState extends State<DashboardPage> {
             imageHeight: 30.96,
             label: 'Exhibitions',
             index: 1,
+            textStyle: GoogleFonts.barlow(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              height: 24 / 14,
+              letterSpacing: 0,
+              color: const Color(0x75000000), // ~46% opacity black
+            ),
           ),
           _buildNavItem(
              imagePath: 'assets/images/Revenue.png',
-            imageWidth: 53,
-            imageHeight: 24,
+            imageWidth: 33,
+            imageHeight: 28,
             label: 'Revenue',
             index: 2,
+            textStyle: GoogleFonts.barlow(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              height: 24 / 14,
+              letterSpacing: 0,
+              color: const Color(0x75000000),
+            ),
           ),
         ],
       ),
@@ -403,6 +486,7 @@ class _DashboardPageState extends State<DashboardPage> {
     double? imageHeight,
     required String label,
     required int index,
+    TextStyle? textStyle,
   }) {
     final isSelected = _currentIndex == index;
     return InkWell(
@@ -428,16 +512,16 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(
+            style: textStyle ?? TextStyle(
               color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
           const SizedBox(height: 8),
           Container(
-            height: 2,
-            width: 40,
-            color: isSelected ? Theme.of(context).colorScheme.primary : Colors.transparent,
+            height: 1,
+            width: 65,
+            color: isSelected ? const Color(0xFFFFB500) : Colors.transparent,
           ),
         ],
       ),
@@ -446,7 +530,7 @@ class _DashboardPageState extends State<DashboardPage> {
   
   Widget _buildGalleryGrid() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
       child: Consumer<PhotoViewModel>(
         builder: (context, vm, _) {
           if ((vm.status == PhotoVmStatus.initial || vm.status == PhotoVmStatus.loading) && vm.photos.isEmpty) {
@@ -457,50 +541,61 @@ class _DashboardPageState extends State<DashboardPage> {
             return const Center(child: Text('No photos available'));
           }
 
-          return GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.8,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemCount: vm.photos.length,
-            itemBuilder: (context, index) {
-              final photo = vm.photos[index];
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  'https://picsum.photos/id/${photo.id}/300/300',
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Container(
-                      color: Colors.grey[300],
-                      child: const Center(child: CircularProgressIndicator()),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey[300],
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.broken_image, size: 48, color: Colors.grey),
-                          SizedBox(height: 8),
-                          Text(
-                            'Image link is not valid',
-                            style: TextStyle(color: Colors.black54),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+          return Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 340,
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  // Figma tile size: 166.94 x 168 => aspect ratio ≈ 0.993
+                  childAspectRatio: 0.993,
+                  crossAxisSpacing: 6.12,
+                  mainAxisSpacing: 8,
                 ),
-              );
-            },
+                itemCount: vm.photos.length,
+                itemBuilder: (context, index) {
+                  final photo = vm.photos[index];
+                  return SizedBox(
+                    width: 166.94,
+                    height: 168,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.zero,
+                      child: Image.network(
+                        'https://picsum.photos/id/${photo.id}/300/300',
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            color: Colors.grey[300],
+                            child: const Center(child: CircularProgressIndicator()),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.grey[300],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(Icons.broken_image, size: 48, color: Colors.grey),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Image link is not valid',
+                                  style: TextStyle(color: Colors.black54),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           );
         },
       ),
@@ -545,5 +640,80 @@ class _PersonGlyphPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _PersonGlyphPainter oldDelegate) {
     return oldDelegate.color != color;
+  }
+}
+
+class _FigmaSwitch extends StatefulWidget {
+  const _FigmaSwitch({required this.initialValue});
+  final bool initialValue;
+
+  @override
+  State<_FigmaSwitch> createState() => _FigmaSwitchState();
+}
+
+class _FigmaSwitchState extends State<_FigmaSwitch> with SingleTickerProviderStateMixin {
+  late bool _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.initialValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 46,
+      height: 17,
+      child: GestureDetector(
+        onTap: () => setState(() => _value = !_value),
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            // Track
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              width: 46,
+              height: 17,
+              decoration: BoxDecoration(
+                color: _value ? const Color(0xFF3AA34A) : const Color(0xFFDBDBD8),
+                borderRadius: BorderRadius.circular(17 / 2),
+              ),
+            ),
+            // Thumb oversized with shadow
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 180),
+              left: _value ? 22 : -1,
+              top: -6,
+              child: Container(
+                width: 29,
+                height: 29,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Container(
+                    width: 6,
+                    height: 6,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF2E6B2F),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
